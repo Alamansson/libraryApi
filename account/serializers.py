@@ -1,6 +1,8 @@
 from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 from .models import User, UserRating
 from .utils import send_activation_code
+
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -81,31 +83,14 @@ class CreateNewPasswordSerializer(serializers.Serializer):
         return user
 
 
-class UserRatingSerializer(serializers.Serializer):
+class UserRatingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = UserRating
         fields = '__all__'
 
-    # def get_user_email(self, email):
-    #     print("EMAIL: ", email)
-    #     email = email.user.email
-    #     print('Email: ', email)
-    #     return email
-
-    def validate_rating(self, rating):
-        if rating not in range(1, 6):
-            raise serializers.ValidationError(
-                "Рейтинг должен быть от 1 до 5"
-            )
-        return rating
-
     def create(self, validated_data):
-        print('Context: ',self.context)
-        print('Validated_data: ', validated_data)
-        user = self.context.get('request').user
-        print('user: ', user)
-        print('Validated data :', validated_data)
-        validated_data['user'] = user
+        validated_data = self.validated_data
+        # print('validated: ', validated_data)
         rating = UserRating.objects.create(**validated_data)
         return rating
 
