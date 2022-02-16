@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -6,6 +7,8 @@ from rest_framework.views import APIView
 from .serializers import RegistrationSerializer, CreateNewPasswordSerializer, UserRatingSerializer
 from .models import User, UserRating
 from .utils import send_activation_code
+from .permissions import IsActive
+from django.db.models import Prefetch, Exists, OuterRef
 
 
 class RegistrationView(APIView):
@@ -17,7 +20,7 @@ class RegistrationView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(
-                'OK', 201
+                'Вы успешно зарегистрировались', 201
             )
 
 
@@ -69,14 +72,24 @@ class CompleteResetPasswordView(APIView):
             )
 
 
-class UserRatingView(APIView):
+class UserRatingView(ListAPIView):
 
-    def post(self, request):
-        serializer = UserRatingSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(
-                'Спасибо что делаете комьюнити лучше', status=200
-            )
+    permission_classes = [IsActive]
+
+    # def post(self, request):
+    #     serializer = UserRatingSerializer(data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         serializer.save()
+    #         return Response(
+    #             'Спасибо что делаете комьюнити лучше', status=200
+    #         )
+
+    serializer_class = UserRatingSerializer
+    queryset = User.objects.none()
+
+    def get_queryset(self):
+        return User.objects.annotate(rating=Exists(UserRating.objects.filter(
+            user_id=self.request.user, id=OuterRef('pk')))).order_by('email')
+
 
 
