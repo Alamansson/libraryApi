@@ -4,7 +4,6 @@ from .models import User, UserRating
 from .utils import send_activation_code
 
 
-
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=4, required=True, write_only=True)
     password_confirm = serializers.CharField(min_length=4, required=True, write_only=True)
@@ -84,15 +83,35 @@ class CreateNewPasswordSerializer(serializers.Serializer):
 
 
 class UserRatingSerializer(serializers.ModelSerializer):
+
+    # class Meta:
+    #     model = UserRating
+    #     fields = '__all__'
+    #
+    # def validate(self, attrs):
+    #     print('Model', UserRating.objects)
+        # if UserRating.objects.filter(user=attrs.get('user')).exists() and \
+        #         UserRating.objects.filter(author=attrs.get('author')).exists():
+        #     raise serializers.ValidationError('Вы уже ставили рейтинг этому пользователю')
+        # return attrs
+
+    # def validate(self, attrs):
+    #     print(attrs)
+    #     print(attrs.get('user'))
+    #     return attrs
+    #
+    # def create(self, validated_data):
+    #     print('validated_data', validated_data)
+    #     # user = self.context.get('request').user
+    #     # validated_data['user'] = user
+    #     rating = UserRating.objects.create(**validated_data)
+    #     return rating
+
+    rating = serializers.IntegerField(required=True)
+
     class Meta:
         model = UserRating
         fields = '__all__'
-
-    def create(self, validated_data):
-        validated_data = self.validated_data
-        # print('validated: ', validated_data)
-        rating = UserRating.objects.create(**validated_data)
-        return rating
 
 
 

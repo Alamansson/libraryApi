@@ -29,6 +29,7 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractUser):
     username = None
+    number = models.SmallIntegerField(null=True, blank=True)
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=False)
     activation_code = models.CharField(max_length=10, blank=True)
@@ -52,9 +53,8 @@ class User(AbstractUser):
 
 
 class UserRating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review', null=True)
-    rating = models.SmallIntegerField(choices=[(i, i) for i in range(1, 6)])
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating', null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review')
 
 
 
