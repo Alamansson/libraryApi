@@ -68,16 +68,15 @@ class CompleteResetPasswordView(APIView):
                 'Вы успешно поменяли пароль', status=200
             )
 
+
 class UserRatingView(APIView):
-    # queryset = UserRating.objects.all()
-    # serializer_class = UserRatingSerializer
 
     def post(self, request):
-        print('Request: ', request)
-        print('Request data: ', request.data)
         serializer = UserRatingSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(
                 'Спасибо что делаете комьюнити лучше', status=200
             )
+
+

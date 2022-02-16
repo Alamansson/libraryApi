@@ -52,8 +52,8 @@ class User(AbstractUser):
 
 
 class UserRating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating', null=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review', null=True)
     rating = models.SmallIntegerField(choices=[(i, i) for i in range(1, 6)])
 
 
