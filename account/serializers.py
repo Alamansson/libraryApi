@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from .models import User, UserRating
+from .models import User
 from .utils import send_activation_code
 
 
@@ -82,7 +82,7 @@ class CreateNewPasswordSerializer(serializers.Serializer):
         return user
 
 
-class UserRatingSerializer(serializers.ModelSerializer):
+# class UserRatingSerializer(serializers.ModelSerializer):
 
     # class Meta:
     #     model = UserRating
@@ -107,13 +107,11 @@ class UserRatingSerializer(serializers.ModelSerializer):
     #     rating = UserRating.objects.create(**validated_data)
     #     return rating
 
-    rating = serializers.IntegerField(required=True)
-
-    class Meta:
-        model = UserRating
-        fields = '__all__'
-
-
+    # rating = serializers.IntegerField(required=True)
+    #
+    # class Meta:
+    #     model = UserRating
+    #     fields = '__all__'
 
 
 

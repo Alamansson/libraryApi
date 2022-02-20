@@ -1,8 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
-from .models import Book, BookLike, BookFavourite
-from .serializers import BookSerializer, BookLikeSerializer, BookFavouriteSerializer
+from .models import Book
+from .serializers import BookSerializer
 from account.permissions import IsAuthorPermission, IsActive
 from rest_framework.permissions import AllowAny
 
@@ -35,19 +35,6 @@ class BookView(PermissionMixin, ModelViewSet):
         context = super().get_serializer_context()
         context['action'] = self.action
         return context
-
-
-class BookLikeView(PermissionMixin, ModelViewSet):
-    permission_classes = IsAuthorPermission
-    queryset = BookLike.objects.all()
-    serializer_class = BookLikeSerializer
-
-
-class BookFavouriteView(PermissionMixin, ModelViewSet):
-    permission_classes = IsAuthorPermission
-    queryset = BookFavourite.objects.all()
-    serializer_class = BookFavouriteSerializer
-
 
 
 

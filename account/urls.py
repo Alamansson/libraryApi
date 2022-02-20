@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegistrationView, ActivationView, ForgotPasswordView, CompleteResetPasswordView, UserRatingView
+from .views import RegistrationView, ActivationView, ForgotPasswordView, CompleteResetPasswordView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -10,5 +10,5 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('recover/', ForgotPasswordView.as_view()),
     path('complete_recover/', CompleteResetPasswordView.as_view()),
-    path('user_rating/', UserRatingView.as_view())
-    ]
+
+]

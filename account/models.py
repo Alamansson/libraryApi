@@ -33,12 +33,9 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=False)
     activation_code = models.CharField(max_length=10, blank=True)
-    # ratings = models.SmallIntegerField(blank=True, null=True)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
-
 
     def create_activation_code(self):
         from django.utils.crypto import get_random_string
@@ -52,9 +49,6 @@ class User(AbstractUser):
         return self.email
 
 
-class UserRating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating', null=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review')
 
 
 

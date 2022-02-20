@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Book, BookLike, BookFavourite
+
+
+from .models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -18,36 +20,7 @@ class BookSerializer(serializers.ModelSerializer):
         return book
 
 
-class BookLikeSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = BookLike
-        fields = "__all__"
-
-    def create(self, validated_data):
-        print('Works create')
-        user = self.context.get('request').user
-        print('User: ', user)
-        validated_data['user'] = user
-        print('validated_data', validated_data)
-        like = BookLike.objects.create(**validated_data)
-        return like
-
-
-class BookFavouriteSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = BookFavourite
-        fields = "__all__"
-
-    def create(self, validated_data):
-        print('Works create')
-        user = self.context.get('request').user
-        print('User: ', user)
-        validated_data['user'] = user
-        print('validated_data', validated_data)
-        favourite = BookFavourite.objects.create(**validated_data)
-        return favourite
 
 
 
