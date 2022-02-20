@@ -50,6 +50,10 @@ INSTALLED_APPS = [
     #apps
     'account',
     'book',
+    'app_like',
+    'app_favourite',
+
+
 
 
 ]
