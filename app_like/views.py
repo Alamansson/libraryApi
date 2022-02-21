@@ -10,7 +10,7 @@ from account.permissions import IsAuthorPermission
 class LikeView(GenericAPIView):
 
     serializer_class = LikeSerializer
-    permission_classes = [IsAuthorPermission]
+    # permission_classes = [IsAuthorPermission]
 
     def post(self, request):
         srz_data = self.serializer_class(data=request.data)
@@ -26,7 +26,7 @@ class LikeView(GenericAPIView):
 class DislikeView(GenericAPIView):
 
     serializer_class = LikeSerializer
-    permission_classes = [IsAuthorPermission]
+    # permission_classes = [IsAuthorPermission]
 
     def post(self, request):
         srz_data = self.serializer_class(data=request.data)
