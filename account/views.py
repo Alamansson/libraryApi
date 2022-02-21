@@ -7,8 +7,6 @@ from .serializers import RegistrationSerializer, CreateNewPasswordSerializer
 from .models import User
 from .utils import send_activation_code
 
-
-
 class RegistrationView(APIView):
     permission_classes = [AllowAny]
 

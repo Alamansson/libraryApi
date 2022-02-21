@@ -1,8 +1,10 @@
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from celery.decorators import task
 
 
+@task(name="send_code_email_task")
 def send_activation_code(email, code, status):
     if status == 'register':
         context = {
