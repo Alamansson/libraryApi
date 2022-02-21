@@ -50,11 +50,9 @@ class BookReviewRatingSerializer(serializers.ModelSerializer):
         user = self.context.get('request').user
         validated_data['user'] = user
         instance_id = self.context.get('request').data.get('book')
-        # print(instance_id)
         new_rating = self.context.get('request').data.get('rating')
         try:
             instance = BookReviewRating.objects.get(book_id=instance_id)
-
             rating = (instance.rating + int(new_rating)) / 2
 
 
