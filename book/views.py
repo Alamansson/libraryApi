@@ -3,11 +3,10 @@ from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from .models import Book, BookReviewRating
-from .serializers import BookSerializer, BookReviewRatingSerializer
+from .models import Book
+from .serializers import BookSerializer
 from account.permissions import IsAuthorPermission, IsActive
 from rest_framework.permissions import AllowAny
-from rest_framework import viewsets
 
 
 class PermissionMixin:
@@ -58,20 +57,6 @@ class BookView(PermissionMixin, ModelViewSet):
         context = super().get_serializer_context()
         context['action'] = self.action
         return context
-
-
-class BookReviewRatingViewSet(PermissionMixin, ModelViewSet):
-    queryset = BookReviewRating.objects.all()
-    serializer_class = BookReviewRatingSerializer
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args,**kwargs)
 
 
 

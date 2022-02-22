@@ -36,34 +36,6 @@ class Book(models.Model):
     confirmed = ConfirmedProductManager()
 
 
-RATE_CHOICES = [
-    (1, '1 - Trash'),
-    (2, '2 - Horrible'),
-    (3, '3 - Terrible'),
-    (4, '4 - Bad'),
-    (5, '5 - OK'),
-    (6, '6 - Watchable'),
-    (7, '7 - Good'),
-    (8, '8 - Very Good'),
-    (9, '9 - Perfect'),
-    (10, '10 - Master Piece'),
-]
-
-
-class BookReviewRating(models.Model):
-    user = models.ForeignKey(
-        'account.User', verbose_name="Имя пользователя", on_delete=models.DO_NOTHING, blank=True)
-    rating = models.PositiveSmallIntegerField(blank=True, null=True)
-    review = models.TextField(blank=True, null=True)
-    book = models.ForeignKey(
-        Book,
-        on_delete=models.CASCADE,
-        verbose_name="Книги",
-        related_name="ratings"
-    )
-
-    def __str__(self):
-        return f"{self.rating} - {self.book}"
 
 
 
