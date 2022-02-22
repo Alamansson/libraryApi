@@ -2,15 +2,17 @@ from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
+from book.views import PermissionMixin
+
+
 from app_like.models import Like
 from app_like.serializers import LikeSerializer
 from account.permissions import IsAuthorPermission
 
 
-class LikeView(GenericAPIView):
+class LikeView(PermissionMixin, GenericAPIView):
 
     serializer_class = LikeSerializer
-    # permission_classes = [IsAuthorPermission]
 
     def post(self, request):
         srz_data = self.serializer_class(data=request.data)
@@ -23,10 +25,9 @@ class LikeView(GenericAPIView):
                 return Response({'Произошла ошибка'}, status=status.HTTP_200_OK)
 
 
-class DislikeView(GenericAPIView):
+class DislikeView(PermissionMixin, GenericAPIView):
 
     serializer_class = LikeSerializer
-    # permission_classes = [IsAuthorPermission]
 
     def post(self, request):
         srz_data = self.serializer_class(data=request.data)

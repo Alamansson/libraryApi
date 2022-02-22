@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'book',
     'app_like',
     'app_favourite',
+    'app_review',
 
     'drf_yasg',
     # 'corsheaders',
@@ -89,11 +90,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'LibraryApi.urls'
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000'
-]
 
 TEMPLATES = [
     {
@@ -189,7 +185,7 @@ SIMPLE_JWT = {
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/image/'
+
 MEDIA_URL = ''
 
 BROKER_URL = 'redis://localhost:6379'
