@@ -35,6 +35,6 @@ class DislikeView(PermissionMixin, GenericAPIView):
             book_id = srz_data.validated_data['book_id']
             try:
                 Like.objects.get(book_id=book_id, user=request.user).delete()
-                return Response({"Вы удалили ЛАЙК"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"Вы удалили ЛАЙК"}, status=status.HTTP_200_OK)
             except:
-                return Response({'Произошла ошибка'}, status=status.HTTP_200_OK)
+                return Response({'Произошла ошибка'}, status=status.HTTP_400_BAD_REQUEST)
