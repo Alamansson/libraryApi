@@ -20,9 +20,9 @@ class LikeView(PermissionMixin, GenericAPIView):
             book_id = srz_data.validated_data['book_id']
             try:
                 Like.objects.get_or_create(book_id=book_id, user=request.user)
-                return Response({"Вы поставили ЛАЙК"}, status=status.HTTP_200_OK)
+                return Response({"message":"Вы поставили ЛАЙК"}, status=status.HTTP_200_OK)
             except:
-                return Response({'Произошла ошибка'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message":'Произошла ошибка'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DislikeView(PermissionMixin, GenericAPIView):
@@ -35,6 +35,6 @@ class DislikeView(PermissionMixin, GenericAPIView):
             book_id = srz_data.validated_data['book_id']
             try:
                 Like.objects.get(book_id=book_id, user=request.user).delete()
-                return Response({"Вы удалили ЛАЙК"}, status=status.HTTP_200_OK)
+                return Response({ "message": "Вы поставили ЛАЙК"}, status=status.HTTP_200_OK)
             except:
-                return Response({'Произошла ошибка'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message":'Произошла ошибка'}, status=status.HTTP_400_BAD_REQUEST)
